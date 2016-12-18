@@ -1,0 +1,24 @@
+{
+  "name": "hackaton_serpro",
+  "version": "1.0.0",
+  "description": "Github para o desenvolvimento do chatbot para aproximar o governo da população. Desenvolvido de 16 a 18 de dezembro no Hackathon Serpro.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ludimila/HackathonSerpro.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ludimila/HackathonSerpro/issues"
+  },
+  "homepage": "https://github.com/ludimila/HackathonSerpro#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "request": "^2.79.0"
+  }
+}
