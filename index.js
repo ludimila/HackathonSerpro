@@ -9,8 +9,8 @@ const request = require('request');
 let Wit = null;
 let log = null;
 try {
-  Wit = require('').Wit;
-  log = require('').log;
+  Wit = require('/lib').Wit;
+  log = require('/lib').log;
 } catch (e) {
   Wit = require('node-wit').Wit;
   log = require('node-wit').log;
