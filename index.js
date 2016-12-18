@@ -138,6 +138,11 @@ app.get('/webhook', (req, res) => {
   }
 });
 
+// Start page
+app.get('/', function (req, res) {
+  res.send('Oi, sou o server do Seu Geraldo')
+})
+
 // Message handler
 app.post('/webhook', (req, res) => {
   // Parse the Messenger payload
