@@ -37,7 +37,7 @@ if (!FB_VERIFY_TOKEN) { throw new Error('missing FB_VERIFY_TOKEN') }
 // https://developers.facebook.com/docs/messenger-platform/send-api-reference
 
 const fbMessage = (id, text, quick_replies) => {
-  const body = JSON.stringify({
+  let body = JSON.stringify({
     recipient: { id },
     message: { text },
   });
