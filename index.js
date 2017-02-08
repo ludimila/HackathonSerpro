@@ -83,7 +83,7 @@ const findOrCreateSession = (fbid) => {
 
 // Our bot actions
 const actions = {
-  send({sessionId}, {text}) {
+  send({sessionId}, {text, quickreplies}) {
     // Our bot has something to say!
     // Let's retrieve the Facebook user whose session belongs to
     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -92,6 +92,8 @@ const actions = {
     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     console.log(sessionId);
     console.log(text);
+    console.log(quickreplies);
+
     const recipientId = sessions[sessionId].fbid;
     if (recipientId) {
       // Yay, we found our recipient!
