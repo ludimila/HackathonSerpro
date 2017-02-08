@@ -36,10 +36,10 @@ if (!FB_VERIFY_TOKEN) { throw new Error('missing FB_VERIFY_TOKEN') }
 // See the Send API reference
 // https://developers.facebook.com/docs/messenger-platform/send-api-reference
 
-const fbMessage = (id, text) => {
+const fbMessage = (id, text, quickreplies) => {
   const body = JSON.stringify({
     recipient: { id },
-    message: { text },
+    message: { text, quickreplies },
   });
   const qs = 'access_token=' + encodeURIComponent(FB_PAGE_TOKEN);
   return fetch('https://graph.facebook.com/me/messages?' + qs, {
@@ -86,20 +86,13 @@ const actions = {
   send({sessionId}, {text, quickreplies}) {
     // Our bot has something to say!
     // Let's retrieve the Facebook user whose session belongs to
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log(sessionId);
-    console.log(text);
-    console.log(quickreplies);
 
     const recipientId = sessions[sessionId].fbid;
     if (recipientId) {
       // Yay, we found our recipient!
       // Let's forward our bot response to her.
       // We return a promise to let our bot know when we're done sending
-      return fbMessage(recipientId, text)
+      return fbMessage(recipientId, text, quickreplies)
       .then(() => null)
       .catch((err) => {
         console.error(
@@ -176,7 +169,7 @@ app.post('/webhook', (req, res) => {
           if (attachments) {
             // We received an attachment
             // Let's reply with an automatic message
-            fbMessage(sender, 'Perdão meu jovem, mas só estou com tempo para ler texto agora.')
+            fbMessage(sender, 'Perdão meu jovem, mas só estou com tempo para ler texto agora.', [])
             .catch(console.error);
           } else if (text) {
             // We received a text message
