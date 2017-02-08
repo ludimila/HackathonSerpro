@@ -90,7 +90,7 @@ const actions = {
 
     let quickreplies_array = [];
     if (quickreplies) {
-      for (var i = 0; i < quickreplies_array.length; i++) {
+      for (var i = 0; i < quickreplies.length; i++) {
         let dict = {}
         dict["content_type"] = "text";
         dict["title"] = quickreplies[i];
