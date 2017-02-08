@@ -88,12 +88,14 @@ const actions = {
     // Our bot has something to say!
     // Let's retrieve the Facebook user whose session belongs to
 
-    let quickreplies_dict = {};
+    let quickreplies_array = [];
     if (quickreplies) {
-      for (var i = 0; i < quickreplies.length; i++) {
-        quickreplies_dict["content_type"] = "text";
-        quickreplies_dict["title"] = quickreplies[i];
-        quickreplies_dict["payload"] = "not sure";
+      for (var i = 0; i < quickreplies_array.length; i++) {
+        let dict = {}
+        dict["content_type"] = "text";
+        dict["title"] = quickreplies[i];
+        dict["payload"] = "not sure";
+        quickreplies_array.push(dict);
       }
     }
 
@@ -102,7 +104,7 @@ const actions = {
       // Yay, we found our recipient!
       // Let's forward our bot response to her.
       // We return a promise to let our bot know when we're done sending
-      return fbMessage(recipientId, text, quickreplies_dict)
+      return fbMessage(recipientId, text, quickreplies_array)
       .then(() => null)
       .catch((err) => {
         console.error(
