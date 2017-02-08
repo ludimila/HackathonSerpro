@@ -42,7 +42,7 @@ const fbMessage = (id, text, quick_replies) => {
     message: { text },
   });
 
-  if (quick_replies) {
+  if (quick_replies.length != 0) {
     body = JSON.stringify({
        recipient: { id },
        message: { text, quick_replies },
