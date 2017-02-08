@@ -41,6 +41,7 @@ const fbMessage = (id, text, quick_replies) => {
     recipient: { id },
     message: { text, quick_replies },
   });
+  console.log(body);
   const qs = 'access_token=' + encodeURIComponent(FB_PAGE_TOKEN);
   return fetch('https://graph.facebook.com/me/messages?' + qs, {
     method: 'POST',
@@ -88,10 +89,12 @@ const actions = {
     // Let's retrieve the Facebook user whose session belongs to
 
     let quickreplies_dict = {};
-    for (var i = 0; i < quickreplies.length; i++) {
-      quickreplies_dict["content_type"] = "text";
-      quickreplies_dict["title"] = quickreplies[i];
-      quickreplies_dict["payload"] = "not sure";
+    if (quickreplies) {
+      for (var i = 0; i < quickreplies.length; i++) {
+        quickreplies_dict["content_type"] = "text";
+        quickreplies_dict["title"] = quickreplies[i];
+        quickreplies_dict["payload"] = "not sure";
+      }
     }
 
     const recipientId = sessions[sessionId].fbid;
