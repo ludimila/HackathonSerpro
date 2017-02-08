@@ -36,10 +36,10 @@ if (!FB_VERIFY_TOKEN) { throw new Error('missing FB_VERIFY_TOKEN') }
 // See the Send API reference
 // https://developers.facebook.com/docs/messenger-platform/send-api-reference
 
-const fbMessage = (id, text, quickreplies) => {
+const fbMessage = (id, text, quick_replies) => {
   const body = JSON.stringify({
     recipient: { id },
-    message: { text, quickreplies },
+    message: { text, quick_replies },
   });
   const qs = 'access_token=' + encodeURIComponent(FB_PAGE_TOKEN);
   return fetch('https://graph.facebook.com/me/messages?' + qs, {
