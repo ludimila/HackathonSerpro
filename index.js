@@ -117,10 +117,7 @@ const actions = {
       // We return a promise to let our bot know when we're done sending
 
       // check if Wit found eny entity
-      console.log("--------------------------------");
-      console.log(entities);
-      console.log("--------------------------------");
-      if (entities.length == 0) {
+      if (isEmptyObject(entities)) {
         const phrase = doesntUnderstand[Math.floor(Math.random()*doesntUnderstand.length)];
 
         return fbMessage(recipientId, text, quickreplies_array)
@@ -166,6 +163,10 @@ const actions = {
   // You should implement your custom actions here
   // See https://wit.ai/docs/quickstart
 };
+
+function isEmptyObject(obj) {
+  return !Object.keys(obj).length;
+}
 
 // Setting up our bot
 const wit = new Wit({
