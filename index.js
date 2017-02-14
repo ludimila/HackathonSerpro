@@ -118,7 +118,7 @@ const actions = {
 
       // check if Wit found eny entity
       if (entities.length == 0) {
-        const phrase = doesntUnderstand[Math.floor(Math.random()*doesntUnderstand.length];
+        const phrase = doesntUnderstand[Math.floor(Math.random()*doesntUnderstand.length)];
 
         return fbMessage(recipientId, text, quickreplies_array)
         .then(() => null)
