@@ -116,22 +116,6 @@ const actions = {
       // Let's forward our bot response to her.
       // We return a promise to let our bot know when we're done sending
 
-      // check if Wit found eny entity
-      if (isEmptyObject(entities)) {
-        const phrase = doesntUnderstand[Math.floor(Math.random()*doesntUnderstand.length)];
-
-        return fbMessage(recipientId, text, quickreplies_array)
-        .then(() => null)
-        .catch((err) => {
-          console.error(
-            'Oops! An error occurred while forwarding the response to',
-            recipientId,
-            ':',
-            err.stack || err
-          );
-        });
-      }
-
       // Check if there are quickreplies to send
       let quickreplies_array = [];
       if (quickreplies) {
@@ -142,6 +126,22 @@ const actions = {
           dict["payload"] = "not sure";
           quickreplies_array.push(dict);
         }
+      }
+
+      // check if Wit found eny entity
+      if (isEmptyObject(entities)) {
+        const phrase = doesntUnderstand[Math.floor(Math.random()*doesntUnderstand.length)];
+
+        return fbMessage(recipientId, phrase, quickreplies_array)
+        .then(() => null)
+        .catch((err) => {
+          console.error(
+            'Oops! An error occurred while forwarding the response to',
+            recipientId,
+            ':',
+            err.stack || err
+          );
+        });
       }
 
       return fbMessage(recipientId, text, quickreplies_array)
