@@ -90,28 +90,60 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
+const doesntUnderstand = [
+                          "Não entendi o que você disse!",
+                          "Oi? Pode ser mais claro?",
+                          "Tente dizer isso de jeito mais fácil para mim.",
+                          "Não compreendi o que você disse!",
+                          "Não entendi!",
+                          "O que você disse?",
+                          "O quê?",
+                          "Não sei o que isso significa.",
+                          "Não sei sobre isso, mas você pode perguntar o que sei sobre pensões alimentícias",
+                          "Isso eu ainda não aprendi, mas você pode me dizer se está com problemas com seu cartão, por exemplo"
+                         ];
+
 // Our bot actions
 const actions = {
-  send({sessionId}, {text, quickreplies}) {
+  send({sessionId, entities}, {text, quickreplies}) {
     // Our bot has something to say!
     // Let's retrieve the Facebook user whose session belongs to
-
-    let quickreplies_array = [];
-    if (quickreplies) {
-      for (var i = 0; i < quickreplies.length; i++) {
-        let dict = {}
-        dict["content_type"] = "text";
-        dict["title"] = quickreplies[i];
-        dict["payload"] = "not sure";
-        quickreplies_array.push(dict);
-      }
-    }
-
+    
     const recipientId = sessions[sessionId].fbid;
+    
     if (recipientId) {
       // Yay, we found our recipient!
       // Let's forward our bot response to her.
       // We return a promise to let our bot know when we're done sending
+
+      // check if Wit found eny entity
+      if (entities.length == 0) {
+        const phrase = doesntUnderstand[Math.floor(Math.random()*doesntUnderstand.length];
+
+        return fbMessage(recipientId, text, quickreplies_array)
+        .then(() => null)
+        .catch((err) => {
+          console.error(
+            'Oops! An error occurred while forwarding the response to',
+            recipientId,
+            ':',
+            err.stack || err
+          );
+        });
+      }
+
+      // Check if there are quickreplies to send
+      let quickreplies_array = [];
+      if (quickreplies) {
+        for (var i = 0; i < quickreplies.length; i++) {
+          let dict = {}
+          dict["content_type"] = "text";
+          dict["title"] = quickreplies[i];
+          dict["payload"] = "not sure";
+          quickreplies_array.push(dict);
+        }
+      }
+
       return fbMessage(recipientId, text, quickreplies_array)
       .then(() => null)
       .catch((err) => {
