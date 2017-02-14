@@ -116,19 +116,9 @@ const actions = {
       // Let's forward our bot response to her.
       // We return a promise to let our bot know when we're done sending
 
-      // Check if there are quickreplies to send
       let quickreplies_array = [];
-      if (quickreplies) {
-        for (var i = 0; i < quickreplies.length; i++) {
-          let dict = {}
-          dict["content_type"] = "text";
-          dict["title"] = quickreplies[i];
-          dict["payload"] = "not sure";
-          quickreplies_array.push(dict);
-        }
-      }
 
-      // check if Wit found eny entity
+      // Check if Wit found eny entity
       if (isEmptyObject(entities)) {
         const phrase = doesntUnderstand[Math.floor(Math.random()*doesntUnderstand.length)];
 
@@ -142,6 +132,17 @@ const actions = {
             err.stack || err
           );
         });
+      }
+
+      // Check if there are quickreplies to send
+      if (quickreplies) {
+        for (var i = 0; i < quickreplies.length; i++) {
+          let dict = {}
+          dict["content_type"] = "text";
+          dict["title"] = quickreplies[i];
+          dict["payload"] = "not sure";
+          quickreplies_array.push(dict);
+        }
       }
 
       return fbMessage(recipientId, text, quickreplies_array)
