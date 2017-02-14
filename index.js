@@ -118,7 +118,7 @@ const actions = {
 
       // check if Wit found eny entity
       console.log("--------------------------------");
-      console.log(entities.length);
+      console.log(entities);
       console.log("--------------------------------");
       if (entities.length == 0) {
         const phrase = doesntUnderstand[Math.floor(Math.random()*doesntUnderstand.length)];
